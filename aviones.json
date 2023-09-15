@@ -1,0 +1,218 @@
+[
+  {
+    "id": 1,
+    "modelo": "Boeing 747-400",
+    "fabricante": {
+      "id": 1,
+      "nombre": "Boeing",
+      "pais": "Estados Unidos",
+      "anio_fundacion": 1916,
+      "imagen": "boeing_logo.png"
+    },
+    "aerolineas_usuarias": [
+      {
+        "id": 1,
+        "nombre": "Delta Air Lines",
+        "pais": "Estados Unidos",
+        "imagen": "delta_logo.png"
+      },
+      {
+        "id": 2,
+        "nombre": "British Airways",
+        "pais": "Reino Unido",
+        "imagen": "british_airways_logo.jpeg"
+      },
+      {
+        "id": 3,
+        "nombre": "Lufthansa",
+        "pais": "Alemania",
+        "imagen": "lufthansa_logo.png"
+      }
+    ],
+    "imagen": "Boeing747-400.jpg",
+    "capacidad_pasajeros": 416,
+    "alcance_km": 13400,
+    "velocidad_maxima_kmh": 988,
+    "precio_millon_usd": 352.3
+  },
+  {
+    "id": 2,
+    "modelo": "Airbus A320",
+    "fabricante": {
+      "id": 2,
+      "nombre": "Airbus",
+      "pais": "Francia",
+      "anio_fundacion": 1970,
+      "imagen": "airbus_logo.jpeg"
+    },
+    "aerolineas_usuarias": [
+      {
+        "id": 4,
+        "nombre": "American Airlines",
+        "pais": "Estados Unidos",
+        "imagen": "american_airlines_logo.jpeg"
+      },
+      {
+        "id": 5,
+        "nombre": "Air France",
+        "pais": "Francia",
+        "imagen": "air_france_logo.png"
+      },
+      {
+        "id": 6,
+        "nombre": "Iberia",
+        "pais": "España",
+        "imagen": "iberia_logo.png"
+      }
+    ],
+    "imagen": "AirbusA320.jpeg",
+    "capacidad_pasajeros": 150,
+    "alcance_km": 5700,
+    "velocidad_maxima_kmh": 900,
+    "precio_millon_usd": 101.4
+  },
+  {
+    "id": 3,
+    "modelo": "Embraer E190",
+    "fabricante": {
+      "id": 3,
+      "nombre": "Embraer",
+      "pais": "Brasil",
+      "anio_fundacion": 1969,
+      "imagen": "embraer_logo.png"
+    },
+    "aerolineas_usuarias": [
+      {
+        "id": 7,
+        "nombre": "Azul Brazilian Airlines",
+        "pais": "Brasil",
+        "imagen": "azul_logo.png"
+      },
+      {
+        "id": 8,
+        "nombre": "GOL Linhas Aéreas",
+        "pais": "Brasil",
+        "imagen": "gol_logo.png"
+      },
+      {
+        "id": 9,
+        "nombre": "LATAM Airlines",
+        "pais": "Chile",
+        "imagen": "latam_logo.png"
+      }
+    ],
+    "imagen": "EmbraerE190.png",
+    "capacidad_pasajeros": 114,
+    "alcance_km": 4070,
+    "velocidad_maxima_kmh": 890,
+    "precio_millon_usd": 53.5
+  },
+  {
+    "id": 4,
+    "modelo": "Airbus A350",
+    "fabricante": {
+      "id": 2,
+      "nombre": "Airbus",
+      "pais": "Francia",
+      "anio_fundacion": 1970,
+      "imagen": "airbus_logo.jpeg"
+    },
+    "aerolineas_usuarias": [
+      {
+        "id": 4,
+        "nombre": "American Airlines",
+        "pais": "Estados Unidos",
+        "imagen": "american_airlines_logo.jpeg"
+      },
+      {
+        "id": 5,
+        "nombre": "Air France",
+        "pais": "Francia",
+        "imagen": "air_france_logo.png"
+      },
+      {
+        "id": 6,
+        "nombre": "Iberia",
+        "pais": "España",
+        "imagen": "iberia_logo.png"
+      }
+    ],
+    "imagen": "AirbusA350.png",
+    "capacidad_pasajeros": 325,
+    "alcance_km": 14815,
+    "velocidad_maxima_kmh": 945,
+    "precio_millon_usd": 317.8
+  },
+  {
+    "id": 5,
+    "modelo": "Boeing 777",
+    "fabricante": {
+      "id": 1,
+      "nombre": "Boeing",
+      "pais": "Estados Unidos",
+      "anio_fundacion": 1916,
+      "imagen": "boeing_logo.png"
+    },
+    "aerolineas_usuarias": [
+      {
+        "id": 7,
+        "nombre": "Azul Brazilian Airlines",
+        "pais": "Brasil",
+        "imagen": "azul_logo.png"
+      },
+      {
+        "id": 8,
+        "nombre": "GOL Linhas Aéreas",
+        "pais": "Brasil",
+        "imagen": "gol_logo.png"
+      },
+      {
+        "id": 9,
+        "nombre": "LATAM Airlines",
+        "pais": "Chile",
+        "imagen": "latam_logo.png"
+      }
+    ],
+    "imagen": "Boeing777.jpg",
+    "capacidad_pasajeros": 440,
+    "alcance_km": 15770,
+    "velocidad_maxima_kmh": 945,
+    "precio_millon_usd": 361.5
+  },
+  {
+    "id": 6,
+    "modelo": "Embraer E195",
+    "fabricante": {
+      "id": 3,
+      "nombre": "Embraer",
+      "pais": "Brasil",
+      "anio_fundacion": 1969,
+      "imagen": "embraer_logo.png"
+    },
+    "aerolineas_usuarias": [
+      {
+        "id": 1,
+        "nombre": "Delta Air Lines",
+        "pais": "Estados Unidos",
+        "imagen": "delta_logo.png"
+      },
+      {
+        "id": 2,
+        "nombre": "British Airways",
+        "pais": "Reino Unido",
+        "imagen": "british_airways_logo.jpeg"
+      },
+      {
+        "id": 3,
+        "nombre": "Lufthansa",
+        "pais": "Alemania",
+        "imagen": "lufthansa_logo.png"
+      }
+    ],
+    "imagen": "EmbraerE195.jpg",
+    "capacidad_pasajeros": 124,
+    "alcance_km": 4023,
+    "velocidad_maxima_kmh": 870,
+    "precio_millon_usd": 60.8
+  }
+]

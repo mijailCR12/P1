@@ -1,0 +1,220 @@
+[
+  {
+    "id": 1,
+    "nombre": "Delta Air Lines",
+    "pais": "Estados Unidos",
+    "imagen": "delta_logo.png",
+    "fabricantes": [
+      {
+        "id": 1,
+        "nombre": "Boeing"
+      },
+      {
+        "id": 3,
+        "nombre": "Embraer"
+      }
+    ],
+    "aviones": [
+      {
+        "id": 1,
+        "nombre": "Boeing 747-400"
+      },
+      {
+        "id": 6,
+        "nombre": "Embraer E195"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nombre": "British Airways",
+    "pais": "Reino Unido",
+    "imagen": "british_airways_logo.jpeg",
+    "fabricantes": [
+      {
+        "id": 3,
+        "nombre": "Embraer"
+      }
+    ],
+    "aviones": [
+      {
+        "id": 6,
+        "nombre": "Embraer E195"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "nombre": "Lufthansa",
+    "pais": "Alemania",
+    "imagen": "lufthansa_logo.png",
+    "fabricantes": [
+      {
+        "id": 3,
+        "nombre": "Embraer"
+      }
+    ],
+    "aviones": [
+      {
+        "id": 6,
+        "nombre": "Embraer E195"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "nombre": "American Airlines",
+    "pais": "Estados Unidos",
+    "imagen": "american_airlines_logo.jpeg",
+    "fabricantes": [
+      {
+        "id": 2,
+        "nombre": "Airbus"
+      }
+    ],
+    "aviones": [
+      {
+        "id": 2,
+        "nombre": "Airbus A320"
+      },
+      {
+        "id": 4,
+        "nombre": "Airbus A350"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "nombre": "Air France",
+    "pais": "Francia",
+    "imagen": "air_france_logo.png",
+    "fabricantes": [
+      {
+        "id": 2,
+        "nombre": "Airbus"
+      }
+    ],
+    "aviones": [
+      {
+        "id": 2,
+        "nombre": "Airbus A320"
+      },
+      {
+        "id": 4,
+        "nombre": "Airbus A350"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "nombre": "Iberia",
+    "pais": "España",
+    "imagen": "iberia_logo.png",
+    "fabricantes": [
+      {
+        "id": 2,
+        "nombre": "Airbus"
+      }
+    ],
+    "aviones": [
+      {
+        "id": 2,
+        "nombre": "Airbus A320"
+      },
+      {
+        "id": 4,
+        "nombre": "Airbus A350"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "nombre": "Azul Brazilian Airlines",
+    "pais": "Brasil",
+    "imagen": "azul_logo.png",
+    "fabricantes": [
+      {
+        "id": 1,
+        "nombre": "Boeing"
+      },
+      {
+        "id": 3,
+        "nombre": "Embraer"
+      }
+    ],
+    "aviones": [
+      {
+        "id": 1,
+        "nombre": "Boeing 747-400"
+      },
+      {
+        "id": 3,
+        "nombre": "Embraer E190"
+      },
+      {
+        "id": 6,
+        "nombre": "Embraer E195"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "nombre": "GOL Linhas Aéreas",
+    "pais": "Brasil",
+    "imagen": "gol_logo.png",
+    "fabricantes": [
+      {
+        "id": 1,
+        "nombre": "Boeing"
+      },
+      {
+        "id": 3,
+        "nombre": "Embraer"
+      }
+    ],
+    "aviones": [
+      {
+        "id": 1,
+        "nombre": "Boeing 747-400"
+      },
+      {
+        "id": 3,
+        "nombre": "Embraer E190"
+      },
+      {
+        "id": 6,
+        "nombre": "Embraer E195"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "nombre": "LATAM Airlines",
+    "pais": "Chile",
+    "imagen": "latam_logo.png",
+    "fabricantes": [
+      {
+        "id": 1,
+        "nombre": "Boeing"
+      },
+      {
+        "id": 3,
+        "nombre": "Embraer"
+      }
+    ],
+    "aviones": [
+      {
+        "id": 1,
+        "nombre": "Boeing 747-400"
+      },
+      {
+        "id": 3,
+        "nombre": "Embraer E190"
+      },
+      {
+        "id": 6,
+        "nombre": "Embraer E195"
+      }
+    ]
+  }
+]

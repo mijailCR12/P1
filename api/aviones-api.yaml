@@ -1,0 +1,281 @@
+openapi: 3.0.0
+info:
+  title: Catálogo de Aviones API
+  version: 1.0.0
+paths:
+  /aviones:
+    get:
+      summary: Obtener la lista de aviones
+      operationId: getAviones
+      responses:
+        '200':
+          description: Éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Avion'
+    post:
+      summary: Crear un nuevo avión
+      operationId: createAvion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Avion'
+      responses:
+        '201':
+          description: Creado con éxito
+  /aviones/{id}:
+    get:
+      summary: Obtener un avión por ID
+      operationId: getAvionById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Avion'
+    put:
+      summary: Actualizar un avión por ID
+      operationId: updateAvionById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Avion'
+      responses:
+        '204':
+          description: Sin contenido
+    delete:
+      summary: Eliminar un avión por ID
+      operationId: deleteAvionById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Sin contenido
+  /aerolineas:
+    get:
+      summary: Obtener la lista de aerolíneas
+      operationId: getAerolineas
+      responses:
+        '200':
+          description: Éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aerolinea'
+    post:
+      summary: Crear una nueva aerolínea
+      operationId: createAerolinea
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aerolinea'
+      responses:
+        '201':
+          description: Creado con éxito
+  /aerolineas/{id}:
+    get:
+      summary: Obtener una aerolínea por ID
+      operationId: getAerolineaById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aerolinea'
+    put:
+      summary: Actualizar una aerolínea por ID
+      operationId: updateAerolineaById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aerolinea'
+      responses:
+        '204':
+          description: Sin contenido
+    delete:
+      summary: Eliminar una aerolínea por ID
+      operationId: deleteAerolineaById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Sin contenido
+  /fabricantes:
+    get:
+      summary: Obtener la lista de fabricantes
+      operationId: getFabricantes
+      responses:
+        '200':
+          description: Éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FabricanteConAviones' # Usa el nuevo esquema de FabricanteConAviones
+    post:
+      summary: Crear un nuevo fabricante
+      operationId: createFabricante
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Fabricante'
+      responses:
+        '201':
+          description: Creado con éxito
+  /fabricantes/{id}:
+    get:
+      summary: Obtener un fabricante por ID
+      operationId: getFabricanteById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FabricanteConAviones' # Usa el nuevo esquema de FabricanteConAviones
+    put:
+      summary: Actualizar un fabricante por ID
+      operationId: updateFabricanteById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Fabricante'
+      responses:
+        '204':
+          description: Sin contenido
+    delete:
+      summary: Eliminar un fabricante por ID
+      operationId: deleteFabricanteById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Sin contenido
+components:
+  schemas:
+    Avion:
+      type: object
+      properties:
+        id:
+          type: integer
+        modelo:
+          type: string
+        fabricante_id:
+          type: integer
+        aerolineas_usuarias_ids:
+          type: array
+          items:
+            type: integer
+        imagen:
+          type: string
+        capacidad_pasajeros:
+          type: integer
+        alcance_km:
+          type: integer
+        velocidad_maxima_kmh:
+          type: integer
+        precio_millon_usd:
+          type: number
+
+    Aerolinea:
+      type: object
+      properties:
+        id:
+          type: integer
+        nombre:
+          type: string
+        pais:
+          type: string
+        imagen:
+          type: string
+
+    Fabricante:
+      type: object
+      properties:
+        id:
+          type: integer
+        nombre:
+          type: string
+        pais:
+          type: string
+        anio_fundacion:
+          type: integer
+        imagen:
+          type: string
+
+    FabricanteConAviones: # Nuevo esquema para Fabricante con información de aviones
+      allOf:
+        - $ref: '#/components/schemas/Fabricante' # Hereda propiedades de Fabricante
+        - type: object
+          properties:
+            aviones:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nombre:
+                    type: string

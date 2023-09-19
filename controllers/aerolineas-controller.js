@@ -1,6 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const aerolineasService = require('../services/aerolineas-service'); // Asegúrate de que el archivo de servicio sea correcto
+const multer = require('multer'); // Asegúrate de que tengas instalada la librería 'multer'
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images/'); // Cambia esto a la ruta donde deseas guardar las imágenes
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname); // Puedes personalizar el nombre del archivo si lo deseas
+  },
+});
+const upload = multer({ storage: storage });
+
 
 // Obtener todas las aerolíneas
 router.get('/aerolineas', (req, res) => {
@@ -20,10 +32,18 @@ router.get('/aerolineas/:id', (req, res) => {
 });
 
 // Crear una nueva aerolínea
-router.post('/aerolineas', (req, res) => {
-  const newAerolinea = req.body;
-  const createdAerolinea = aerolineasService.createAerolinea(newAerolinea);
-  res.status(201).json(createdAerolinea);
+router.post('/aerolineas',upload.single('imagen'), (req, res) => {
+  try {
+    const aerolineaData = req.body;
+    const imagenFilename = req.file.filename;
+    aerolineaData.imagen = imagenFilename
+    const nuevoAerolinea = aerolineasService.createAerolinea(aerolineaData);
+    res.status(201).json(nuevoAerolinea);
+  } catch(error){
+    console.error('Error al crear la aerolinea:', error);
+    res.status(500).json({ error: 'Hubo un error al crear la aerolinea.' });
+  }
+  
 });
 
 // Actualizar una aerolínea por ID

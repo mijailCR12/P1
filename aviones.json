@@ -214,5 +214,60 @@
     "alcance_km": 4023,
     "velocidad_maxima_kmh": 870,
     "precio_millon_usd": 60.8
+  },
+  {
+    "modelo": "wwvvwwv",
+    "capacidad_pasajeros": "1",
+    "alcance_km": "2",
+    "velocidad_maxima_kmh": "3",
+    "precio_millon_usd": "4",
+    "aerolineas_usuarias": "3",
+    "fabricante": "4",
+    "imagen": "imagen-1695100266324-718727254.jpg",
+    "id": 7
+  },
+  {
+    "modelo": "ecve",
+    "capacidad_pasajeros": "0",
+    "alcance_km": "0",
+    "velocidad_maxima_kmh": "0",
+    "precio_millon_usd": "0",
+    "aerolineas_usuarias": "[object Object],[object Object],[object Object]",
+    "fabricante": "[object Object]",
+    "imagen": "imagen-1695100397873-941437596.jpg",
+    "id": 8
+  },
+  {
+    "modelo": "vwvwev",
+    "capacidad_pasajeros": "0",
+    "alcance_km": "0",
+    "velocidad_maxima_kmh": "0",
+    "precio_millon_usd": "0",
+    "aerolineas_usuarias": "[object Object],[object Object],[object Object]",
+    "fabricante": "[object Object]",
+    "imagen": "imagen-1695101191656-703834898.jpg",
+    "id": 9
+  },
+  {
+    "modelo": "CWC",
+    "capacidad_pasajeros": "0",
+    "alcance_km": "0",
+    "velocidad_maxima_kmh": "0",
+    "precio_millon_usd": "0",
+    "aerolineas_usuarias": "undefined",
+    "fabricante": "3",
+    "imagen": "imagen-1695101543448-863601371.jpg",
+    "id": 10
+  },
+  {
+    "modelo": "dav",
+    "capacidad_pasajeros": "0",
+    "alcance_km": "0",
+    "velocidad_maxima_kmh": "0",
+    "precio_millon_usd": "0",
+    "aerolineas_usuarias": "3,4,6",
+    "fabricante": "2",
+    "imagen": "imagen-1695101671486-524624448.jpg",
+    "id": 11
   }
 ]

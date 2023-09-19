@@ -1,4 +1,5 @@
 const aerolineas = require('../aerolineas.json'); // Asegúrate de que el archivo JSON contenga los datos de las aerolíneas
+const multer = require('multer'); // Asegúrate de que tengas instalada la librería 'multer'
 
 // Obtener todas las aerolíneas
 function getAerolineas() {

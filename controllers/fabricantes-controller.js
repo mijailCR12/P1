@@ -2,6 +2,17 @@ const express = require('express');
 const router = express.Router();
 const fabricantesService = require('../services/fabricantes-service'); // Asegúrate de que el archivo de servicio sea correcto
 const multer = require('multer'); // Asegúrate de que tengas instalada la librería 'multer'
+// Configuración de multer para manejar la carga de imágenes
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images/'); // Cambia esto a la ruta donde deseas guardar las imágenes
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname); // Puedes personalizar el nombre del archivo si lo deseas
+  },
+});
+
+const upload = multer({ storage: storage });
 
 // Obtener todos los fabricantes
 router.get('/fabricantes', (req, res) => {
@@ -22,7 +33,7 @@ router.get('/fabricantes/:id', (req, res) => {
 
 // Crear un nuevo fabricante
 // router.post('/fabricantes', upload.single('imagen'),(req, res) => {
-  router.post('/fabricantes',(req, res) => {
+  router.post('/fabricantes',upload.single('imagen'), (req, res) => {
   try {
     const fabricanteData = req.body;
     const imagenFilename = req.file.filename; // Nombre del archivo de imagen cargado
@@ -38,17 +49,6 @@ const nuevoFabricante = fabricantesService.createFabricante(fabricanteData);
   }
 });
 
-// Configuración de multer para manejar la carga de imágenes
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'ruta/donde/guardar/imagenes'); // Cambia esto a la ruta donde deseas guardar las imágenes
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname); // Puedes personalizar el nombre del archivo si lo deseas
-  },
-});
-
-const upload = multer({ storage: storage });
 
 // Actualizar un fabricante por ID
 router.put('/fabricantes/:id', (req, res) => {

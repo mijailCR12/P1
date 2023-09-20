@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Avion</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Agrega tu archivo de estilos CSS -->
+</head>
+<body>
+    <!-- Botones Encabezado -->
+    <div id="encabezado">
+        <button @click="irAInicio">Inicio</button>
+        <button @click="irAAviones">Aviones</button>
+        <button @click="irAAerolineas">Aerolíneas</button>
+        <button @click="irAFabricantes">Fabricantes</button>
+    </div>
+
+    <div id="app">
+        <h1>Agregar Avión</h1>
+        <form id="avionForm" enctype="multipart/form-data">
+            <table class="ficha-tecnica">
+                <!-- Otros campos del formulario -->
+                <tr>
+                    <td class="etiqueta"><label for="fabricante">Fabricante:</label></td>
+                    <td>
+                        <select id="fabricante" v-model="nuevoAvion.fabricante" required>
+                            <option value="" disabled>Selecciona un fabricante</option>
+                            <option v-for="fabricante in fabricantes" :value="fabricante">{{ fabricante.nombre }}</option>
+                        </select>                    
+                    </td>
+                </tr>
+                <tr>
+                    <td class="etiqueta"><label>Aerolíneas:</label></td>
+                    <td>
+                        <div v-for="aerolinea in aerolineas" :key="aerolinea.id">
+                            <label>
+                                <input type="checkbox" v-model="nuevoAvion.aerolineas_usuarias" :value="aerolinea">{{ aerolinea.nombre }}
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="etiqueta"><label for="nombre">Modelo:</label></td>
+                    <td><input type="text" id="modelo" v-model="nuevoAvion.modelo" required></td>
+                </tr>
+                <tr>
+                    <td class="etiqueta"><label for="capacidad_pasajeros">Capacidad de pasajeros:</label></td>
+                    <td><input type="text" id="capacidad_pasajeros" v-model="nuevoAvion.capacidad_pasajeros" required></td>
+                </tr>
+                <tr>
+                    <td class="etiqueta"><label for="alcance_km">Alcance (km):</label></td>
+                    <td><input type="text" id="alcance_km" v-model="nuevoAvion.alcance_km" required></td>
+                </tr>
+                <tr>
+                    <td class="etiqueta"><label for="velocidad_maxima_kmh">Velocidad máxima (km/h):</label></td>
+                    <td><input type="text" id="velocidad_maxima_kmh" v-model="nuevoAvion.velocidad_maxima_kmh" required></td>
+                </tr>
+                <tr>
+                    <td class="etiqueta"><label for="precio_millon_usd">Precio (USD):</label></td>
+                    <td><input type="text" id="precio_millon_usd" v-model="nuevoAvion.precio_millon_usd" required></td>
+                </tr>
+                <tr>
+                    <td class="etiqueta"><label for="imagen">Imagen:</label></td>
+                    <td>
+                        <input type="file" id="imagen" name="imagen" accept=".png, .jpg, .jpeg, .gif">
+                        <!-- <input type="text" v-model="nuevoAvion.imagen" readonly> -->
+                        <!-- <button class="selecciona-btn" @click="abrirSeleccionador">Selecciona...</button> -->
+                        <img v-if="nuevoAvion.imagen" :src="getImagenUrl(nuevoAvion.imagen)" alt="Imagen seleccionada" width="100">
+                    </td>
+                </tr>
+            </table>
+            <table class="ficha-tecnica" style="width: 100%;">
+                <tr>
+                    <td style="text-align: left;"><button class="agregar-btn" @click="cancelar">Cancelar</button></td>
+                    <td style="text-align: right;"><button class="agregar-btn" type="button" @click="agregarNuevoAvion">Agregar</button></td>
+                </tr>
+            </table>
+        </form>
+        <!-- <table class="ficha-tecnica">
+            <tr>
+                <td class="etiqueta"><label for="fabricante">Fabricante:</label></td>
+                <td>
+                    <select id="fabricante" v-model="nuevoAvion.fabricante.id" required>
+                        <option value="" disabled>Selecciona un fabricante</option>
+                        <option v-for="fabricante in fabricantes" :value="fabricante.id">{{ fabricante.nombre }}</option>
+                    </select>                    
+                </td>
+            </tr>
+            <tr>
+                <td class="etiqueta"><label>Aerolíneas:</label></td>
+                <td>
+                    <div v-for="aerolinea in aerolineas" :key="aerolinea.id">
+                        <label>
+                            <input type="checkbox" v-model="nuevoAvion.aerolineas_usuarias" :value="aerolinea">{{ aerolinea.nombre }}
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="etiqueta"><label for="nombre">Modelo:</label></td>
+                <td><input type="text" id="modelo" v-model="nuevoAvion.modelo" required></td>
+            </tr>
+            <tr>
+                <td class="etiqueta"><label for="capacidad_pasajeros">Capacidad de pasajeros:</label></td>
+                <td><input type="text" id="capacidad_pasajeros" v-model="nuevoAvion.capacidad_pasajeros" required></td>
+            </tr>
+            <tr>
+                <td class="etiqueta"><label for="alcance_km">Alcance (km):</label></td>
+                <td><input type="text" id="alcance_km" v-model="nuevoAvion.alcance_km" required></td>
+            </tr>
+            <tr>
+                <td class="etiqueta"><label for="velocidad_maxima_kmh">Velocidad máxima (km/h):</label></td>
+                <td><input type="text" id="velocidad_maxima_kmh" v-model="nuevoAvion.velocidad_maxima_kmh" required></td>
+            </tr>
+            <tr>
+                <td class="etiqueta"><label for="precio_millon_usd">Precio (USD):</label></td>
+                <td><input type="text" id="precio_millon_usd" v-model="nuevoAvion.precio_millon_usd" required></td>
+            </tr>
+            <tr>
+                <td class="etiqueta"><label for="imagen">Imagen:</label></td>
+                <td>
+                    <input type="file" id="imagen" name="imagen" @change="seleccionarImagen" accept=".png, .jpg, .jpeg, .gif" style="display: none">
+                    <input type="text" v-model="nuevoAvion.imagen" readonly>
+                    <button class="selecciona-btn" @click="abrirSeleccionador">Selecciona...</button>
+                    <img v-if="nuevoAvion.imagen" :src="getImagenUrl(nuevoAvion.imagen)" alt="Imagen seleccionada" width="100">
+                </td>
+            </tr>
+        </table>
+        <table class="ficha-tecnica" style="width: 100%;">
+            <tr>
+                <td style="text-align: left;"><button class="agregar-btn" @click="cancelar">Cancelar</button></td>
+                <td style="text-align: right;"><button class="agregar-btn" @click="agregarNuevoAvion">Agregar</button></td>
+            </tr>
+        </table> -->
+    </div>
+
+    <!-- Pie de página -->
+    <div id="pie-pagina">
+        Copyright (c) - 2023 Juan Carlos Marín Cascante  Proyecto 1 Distribuidos
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        // Funciones para redirigir a las páginas correspondientes
+        new Vue({
+            el: "#encabezado",
+            methods: {
+                irAInicio() {
+                    window.location.href = "index.html";
+                },
+                irAAviones() {
+                    window.location.href = "aviones.html";
+                },
+                irAAerolineas() {
+                    window.location.href = "aerolineas.html";
+                },
+                irAFabricantes() {
+                    window.location.href = "fabricantes.html";
+                }
+            }
+        });
+        
+        // Tu código JavaScript aquí
+        new Vue({
+            el: "#app",
+            data: {
+                nuevoAvion: {
+                    modelo: "",
+                    fabricante: {
+                        id: null,
+                        nombre: "",
+                        pais: "",
+                        anio_fundacion: null,
+                        imagen: ""
+                    },
+                    aerolineas_usuarias: [],
+                    imagen: "",
+                    capacidad_pasajeros: 0,
+                    alcance_km: 0,
+                    velocidad_maxima_kmh: 0,
+                    precio_millon_usd: 0
+                },
+                fabricantes: [],
+                aerolineas: [],
+            },
+            created() {
+                // Obten la lista de fabricantes al cargar la página
+                this.obtenerFabricantes();
+                fetch('http://localhost:3000/aerolineas')
+                    .then(response => response.json())
+                    .then(data => {
+                        this.aerolineas = data; // Almacenar la lista de aerolíneas en la variable aerolineas
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("Hubo un error al cargar la lista de aerolíneas. Por favor, inténtalo de nuevo.");
+                    });
+            },
+            methods: {
+                obtenerFabricantes() {
+                    fetch('http://localhost:3000/fabricantes')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Error al obtener los fabricantes: ${response.statusText}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Asigna la lista de fabricantes a la variable "fabricantes"
+                            this.fabricantes = data;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert("Hubo un error al obtener la lista de fabricantes. Por favor, inténtalo de nuevo.");
+                        });
+                },
+                agregarNuevoAvion() {
+                    // Crea un objeto FormData
+                    const formData = new FormData();
+
+                    // Agrega los campos del formulario al objeto FormData
+                    formData.append('modelo', this.nuevoAvion.modelo);
+                    formData.append('capacidad_pasajeros', this.nuevoAvion.capacidad_pasajeros);
+                    formData.append('alcance_km', this.nuevoAvion.alcance_km);
+                    formData.append('velocidad_maxima_kmh', this.nuevoAvion.velocidad_maxima_kmh);
+                    formData.append('precio_millon_usd', this.nuevoAvion.precio_millon_usd);
+                    formData.append('imagen', document.getElementById('imagen').files[0]); // Agrega la imagen seleccionada
+
+                    
+                    formData.append('fabricante[id]', this.nuevoAvion.fabricante.id);
+                    formData.append('fabricante[nombre]', this.nuevoAvion.fabricante.nombre);
+                    formData.append('fabricante[pais]', this.nuevoAvion.fabricante.pais);
+                    formData.append('fabricante[anio_fundacion]', this.nuevoAvion.fabricante.anio_fundacion);
+                    formData.append('fabricante[imagen]', this.nuevoAvion.fabricante.imagen);
+
+                    // Crea un array con los IDs de las aerolíneas seleccionadas
+                    // const aerolineasIds = this.nuevoAvion.aerolineas_usuarias.map(aerolinea => aerolinea.id);
+                    // Envía el array de IDs como JSON
+                    // formData.append('aerolineas_usuarias', this.nuevoAvion.aerolineas_usuarias);
+                    formData.append('aerolineas_usuarias', JSON.stringify(this.nuevoAvion.aerolineas_usuarias));
+
+                    // formData.append('aerolineas_usuarias', JSON.stringify(aerolineasIds));
+                    // formData.append('aerolineas_usuarias', JSON.stringify(this.nuevoAvion.aerolineas_usuarias));
+
+                    // Realiza la solicitud POST con FormData
+                    fetch('http://localhost:3000/aviones', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json', // Asegura que el servidor comprenda que se envía JSON
+                        },
+                    })
+                    .then(response => {
+                        if (response.status === 200 || response.status === 204 || response.status === 201) {
+                            // La solicitud se completó con éxito
+                            window.location.href = "aviones.html";
+                        } else {
+                            console.error('Error al agregar el avión:', response.status);
+                            alert("Hubo un error al agregar el avión. Por favor, inténtalo de nuevo.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo.");
+                    });
+                },
+                ////////////////////////////////////////////////////////////////
+                // enviarFormulario() {
+                //     // Obtén una referencia al formulario y al campo de entrada de archivos
+                //     const formulario = document.getElementById('avionForm');
+                //     const inputImagen = document.getElementById('imagen');
+
+                //     // Crea un objeto FormData
+                //     const formData = new FormData(formulario);
+
+                //     // Agrega cualquier otro dato que desees incluir en el encabezado JSON
+                //     formData.append('modelo', this.nuevoAvion.modelo);
+                //     formData.append('capacidad_pasajeros', this.nuevoAvion.capacidad_pasajeros);
+                //     formData.append('alcance_km', this.nuevoAvion.alcance_km);
+                //     formData.append('velocidad_maxima_kmh', this.nuevoAvion.velocidad_maxima_kmh);
+                //     formData.append('precio_millon_usd', this.nuevoAvion.precio_millon_usd);
+                //     formData.append('aerolineas_usuarias', this.nuevoAvion.aerolineas_usuarias);
+                //     formData.append('fabricante', this.nuevoAvion.fabricante.id);
+
+                //     // Realiza la solicitud POST al servidor
+                //     fetch('http://localhost:3000/aviones', {
+                //         method: 'POST',
+                //         body: formData,
+                //     })
+                //     .then(response => {
+                //         if (response.status === 200 || response.status === 204 || response.status === 201) {
+                //             // La solicitud se completó con éxito
+                //             // window.location.href = "aviones.html";
+                //         } else {
+                //             console.error('Error al agregar el avión:', response.status);
+                //             alert("Hubo un error al agregar el avión. Por favor, inténtalo de nuevo.");
+                //         }
+                //     })
+                //     .catch(error => {
+                //         console.error('Error:', error);
+                //         alert("Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo.");
+                //     });
+                // },
+                enviarFormulario() {
+                    if (!this.validarDatos()) {
+                        return; // Detiene el proceso si los datos no son válidos
+                    }
+
+                    const nuevoAvionData = {
+                        modelo: this.nuevoAvion.modelo,
+                        fabricante: {
+                            id: parseInt(this.nuevoAvion.fabricante.id),
+                            nombre: this.nuevoAvion.fabricante.nombre || "", // Valor predeterminado si no se proporciona
+                            pais: this.nuevoAvion.fabricante.pais || "",
+                            anio_fundacion: parseInt(this.nuevoAvion.fabricante.anio_fundacion) || null, // Valor predeterminado si no se proporciona
+                            imagen: this.nuevoAvion.fabricante.imagen || ""
+                        },
+                        aerolineas_usuarias: this.nuevoAvion.aerolineas_usuarias.map(aerolinea => ({
+                            id: parseInt(aerolinea.id),
+                            nombre: aerolinea.nombre || "",
+                            pais: aerolinea.pais || "",
+                            imagen: aerolinea.imagen || ""
+                        })),
+                        imagen: this.nuevoAvion.imagen || "",
+                        capacidad_pasajeros: parseInt(this.nuevoAvion.capacidad_pasajeros) || 0, // Valor predeterminado si no se proporciona
+                        alcance_km: parseInt(this.nuevoAvion.alcance_km) || 0,
+                        velocidad_maxima_kmh: parseInt(this.nuevoAvion.velocidad_maxima_kmh) || 0,
+                        precio_millon_usd: parseFloat(this.nuevoAvion.precio_millon_usd) || 0
+                    };
+
+                    // Realiza la solicitud POST al servidor
+                    fetch('http://localhost:3000/aviones', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(nuevoAvionData),
+                    })
+                    .then(response => {
+                        if (response.status === 200 || response.status === 204 || response.status === 201) {
+                            // La solicitud se completó con éxito
+                            window.location.href = "aviones.html";
+                        } else {
+                            console.error('Error al agregar el avión:', response.status);
+                            alert("Hubo un error al agregar el avión. Por favor, inténtalo de nuevo.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo.");
+                    });
+                },
+                validarDatos() {
+                    // Realiza validaciones de campos aquí y devuelve true si son válidos, o false si no lo son
+                    if (!this.nuevoAvion.modelo || !this.nuevoAvion.fabricante.id || this.nuevoAvion.aerolineas_usuarias.length === 0) {
+                        alert("Por favor, complete todos los campos obligatorios.");
+                        return false;
+                    }
+
+                    // Realiza más validaciones si es necesario...
+
+                    return true; // Si todos los datos son válidos
+                },
+
+                // agregarNuevoAvion() {
+                //     // Crea un objeto con los datos del nuevo avión en el formato que deseas
+                //     const nuevoAvionData = {
+                //         modelo: this.nuevoAvion.modelo,
+                //         capacidad_pasajeros: parseInt(this.nuevoAvion.capacidad_pasajeros),
+                //         alcance_km: parseInt(this.nuevoAvion.alcance_km),
+                //         velocidad_maxima_kmh: parseInt(this.nuevoAvion.velocidad_maxima_kmh),
+                //         precio_millon_usd: parseFloat(this.nuevoAvion.precio_millon_usd),
+                //         aerolineas_usuarias: this.nuevoAvion.aerolineas_usuarias.map(aerolinea => ({
+                //             id: aerolinea.id,
+                //             nombre: aerolinea.nombre,
+                //             pais: aerolinea.pais,
+                //             imagen: aerolinea.imagen
+                //         })),
+                //         fabricante: {
+                //             id: this.nuevoAvion.fabricante.id,
+                //             nombre: this.nuevoAvion.fabricante.nombre,
+                //             pais: this.nuevoAvion.fabricante.pais,
+                //             anio_fundacion: parseInt(this.nuevoAvion.fabricante.anio_fundacion),
+                //             imagen: this.nuevoAvion.fabricante.imagen
+                //         },
+                //         imagen: this.nuevoAvion.imagen
+                //     };
+
+                //     // Realiza la solicitud POST al servidor
+                //     fetch('http://localhost:3000/aviones', {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json', // Indica que estás enviando JSON
+                //         },
+                //         body: JSON.stringify(nuevoAvionData), // Convierte el objeto en JSON
+                //     })
+                //     .then(response => {
+                //         if (response.status === 200 || response.status === 204 || response.status === 201) {
+                //             // La solicitud se completó con éxito
+                //             // window.location.href = "aviones.html";
+                //         } else {
+                //             console.error('Error al agregar el avión:', response.status);
+                //             alert("Hubo un error al agregar el avión. Por favor, inténtalo de nuevo.");
+                //         }
+                //     })
+                //     .catch(error => {
+                //         console.error('Error:', error);
+                //         alert("Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo.");
+                //     });
+                // },
+
+                cancelar() {
+                    // Lógica para cancelar y regresar según la navegación
+                    window.history.back();
+                },
+                abrirSeleccionador() {
+                    // Lógica para abrir el selector de archivos
+                    document.getElementById("imagen").click();
+                },
+                seleccionarImagen(event) {
+                    // Lógica para mostrar el nombre de la imagen seleccionada
+                    const selectedFile = event.target.files[0];
+                    if (selectedFile) {
+                        this.nuevoAvion.imagen = selectedFile.name;
+                    } else {
+                        // Si no se selecciona un archivo, borra el valor del nombre de la imagen
+                        this.nuevoAvion.imagen = '';
+                    }
+                },
+                getImagenUrl(imagen) {
+                    // Reemplaza la ruta de la imagen si es necesario
+                    return './images/' + imagen;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

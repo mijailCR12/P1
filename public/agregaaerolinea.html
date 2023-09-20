@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Aerolinea</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Agrega tu archivo de estilos CSS -->
+</head>
+<body>
+    <!-- Botones Encabezado -->
+    <div id="encabezado">
+        <button @click="irAInicio">Inicio</button>
+        <button @click="irAAviones">Aviones</button>
+        <button @click="irAAerolineas">Aerolíneas</button>
+        <button @click="irAFabricantes">Fabricantes</button>
+    </div>
+
+    <div id="app">
+        <h1>Agregar Aerolinea</h1>
+        <table class="ficha-tecnica">
+            <tr>
+                <td class="etiqueta"><label for="nombre">Nombre:</label></td>
+                <td><input type="text" id="nombre" v-model="nuevaAerolinea.nombre" required></td>
+            </tr>
+            <tr>
+                <td class="etiqueta"><label for="pais">País:</label></td>
+                <td><input type="text" id="pais" v-model="nuevaAerolinea.pais" required></td>
+            </tr>
+            <tr>
+                <td class="etiqueta"><label for="imagen">Imagen:</label></td>
+                <td>
+                    <input type="file" id="imagen" @change="seleccionarImagen" accept=".png, .jpg, .jpeg, .gif" style="display: none">
+                    <input type="text" v-model="nuevaAerolinea.imagen" readonly>
+                    <button class="selecciona-btn" @click="abrirSeleccionador">Selecciona...</button>
+                    <img v-if="nuevaAerolinea.imagen" :src="getImagenUrl(nuevaAerolinea.imagen)" alt="Imagen seleccionada" width="100">
+
+                </td>
+            </tr>
+        </table>
+        <table class="ficha-tecnica" style="width: 100%;">
+            <tr>
+                <td style="text-align: left;"><button class="agregar-btn" @click="cancelar">Cancelar</button></td>
+                <td style="text-align: right;"><button class="agregar-btn" @click="agregarNuevaAerolinea">Agregar</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Pie de página -->
+    <div id="pie-pagina">
+        Copyright (c) - 2023 Juan Carlos Marín Cascante  Proyecto 1 Distribuidos
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        // Funciones para redirigir a las páginas correspondientes
+        new Vue({
+            el: "#encabezado",
+            methods: {
+                irAInicio() {
+                    window.location.href = "index.html";
+                },
+                irAAviones() {
+                    window.location.href = "aviones.html";
+                },
+                irAAerolineas() {
+                    window.location.href = "aerolineas.html";
+                },
+                irAFabricantes() {
+                    window.location.href = "fabricantes.html";
+                }
+            }
+        });
+        
+        // Tu código JavaScript aquí
+        new Vue({
+            el: "#app",
+            data: {
+                nuevaAerolinea: {
+                    nombre: "",
+                    pais: "",
+                    imagen: ""
+                },
+            },
+            methods: {
+                // agregarNuevaAerolinea() {
+                //     const nuevaAerolineaData = {
+                //         nombre: this.nuevaAerolinea.nombre,
+                //         pais: this.nuevaAerolinea.pais,
+                //         imagen: this.nuevaAerolinea.imagen
+                //     };
+
+                //     fetch('http://localhost:3000/aerolineas', {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json'
+                //         },
+                //         body: JSON.stringify(nuevaAerolineaData)
+                //     })
+                //     .then(response => {
+                //         if (response.status === 201) {
+                //             window.location.href = "aerolineas.html";
+                //         } else {
+                //             console.error('Error al agregar el aerolinea:', response.status);
+                //             alert("Hubo un error al agregar el aerolinea. Por favor, inténtalo de nuevo.");
+                //         }
+                //     })
+                //     .catch(error => {
+                //         console.error('Error:', error);
+                //         alert("Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo.");
+                //     });
+                // },
+                agregarNuevaAerolinea() {
+                    const formData = new FormData();
+                    formData.append('nombre', this.nuevaAerolinea.nombre);
+                    formData.append('pais', this.nuevaAerolinea.pais);
+                    formData.append('imagen', document.getElementById('imagen').files[0]);
+
+                    fetch('http://localhost:3000/aerolineas', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.status === 201) {
+                            window.location.href = "aerolineas.html";
+                        } else {
+                            console.error('Error al agregar la aerolinea:', response.status);
+                            alert("Hubo un error al agregar la aerolineas. Por favor, inténtalo de nuevo.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo.");
+                    });
+                },
+                cancelar() {
+                
+                    window.history.back();
+                },
+                abrirSeleccionador() {
+                    // Lógica para abrir el selector de archivos
+                    document.getElementById("imagen").click();
+                },
+                seleccionarImagen(event) {
+                    // Lógica para mostrar el nombre de la imagen seleccionada
+                    const selectedFile = event.target.files[0];
+                    if (selectedFile) {
+                        this.nuevaAerolinea.imagen = selectedFile.name;
+                    } else {
+                        // Si no se selecciona un archivo, borra el valor del nombre de la imagen
+                        this.nuevaAerolinea.imagen = '';
+                    }
+                },
+                getImagenUrl(imagen) {
+                    // Reemplaza la ruta de la imagen si es necesario
+                    return './images/' + imagen;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

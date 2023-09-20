@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Fabricante</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Enlace a la hoja de estilos externa -->
+</head>
+<body>
+    <!-- Botones Encabezado -->
+    <div id="encabezado">
+        <button @click="irAInicio">Inicio</button>
+        <button @click="irAAviones">Aviones</button>
+        <button @click="irAAerolineas">Aerolíneas</button>
+        <button @click="irAFabricantes">Fabricantes</button>
+    </div>
+
+    <div id="fabricante-detalle">
+        <div class="ficha-tecnica">
+            <h2>{{ fabricante.nombre }}</h2>
+            <img :src="getImagenUrl(fabricante.imagen)" :alt="fabricante.nombre" width="300" height="300">
+            
+            <form @submit.prevent="guardarCambios">
+                <table class="tabla-atributos">
+                    <tr>
+                        <td><label>ID:</label></td>
+                        <td><input disabled type="text" v-model="fabricante.id" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><label>Nombre:</label></td>
+                        <td><input type="text" v-model="fabricante.nombre"></td>
+                    </tr>
+                    <tr>
+                        <td><label>País:</label></td>
+                        <td><input type="text" v-model="fabricante.pais"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Año de Fundación:</label></td>
+                        <td><input type="text" v-model="fabricante.anio_fundacion"></td>
+                    </tr>
+                </table>
+                <div class="BarraBotonesTabla">
+                    <table>
+                        <tr>
+                            <td>
+                                <button class="agregar-btn btn-regresar" style="float: left;" @click="regresarAFabricantes">Regresar</button>
+                            </td>
+                            <td>
+                                <button class="agregar-btn btn-guardar" style="float: right;" type="submit">Guardar</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    
+    <!-- Pie de página -->
+    <div id="pie-pagina">
+        Copyright (c) - 2023 Juan Carlos Marín Cascante  Proyecto 1 Distribuidos
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        // Funciones para redirigir a las páginas correspondientes
+        new Vue({
+            el: "#encabezado",
+            methods: {
+                irAInicio() {
+                    window.location.href = "index.html";
+                },
+                irAAviones() {
+                    window.location.href = "aviones.html";
+                },
+                irAAerolineas() {
+                    window.location.href = "aerolineas.html";
+                },
+                irAFabricantes() {
+                    window.location.href = "fabricantes.html";
+                }
+            }
+        });
+
+        new Vue({
+            el: "#fabricante-detalle",
+            data: {
+                fabricante: {}
+            },
+            created() {
+                // Obtener el ID del fabricante de la URL
+                const params = new URLSearchParams(window.location.search);
+                const fabricanteId = params.get('id');
+
+                // Realizar una solicitud GET al servidor para obtener los detalles del fabricante por su ID
+                fetch(`http://localhost:3000/fabricantes/${fabricanteId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.fabricante = data;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            },
+            methods: {
+                getImagenUrl(imagen) {
+                    // Reemplaza la ruta de la imagen si es necesario
+                    return './images/' + imagen;
+                },
+                regresarAFabricantes() {
+                    // Redirigir a la página fabricantes.html
+                    // window.history.back();
+                    window.location.href = `fabricantes.html`;
+                },
+                guardarCambios() {
+                    // Enviar una solicitud PUT al servidor para guardar los cambios
+                    fetch(`http://localhost:3000/fabricantes/${this.fabricante.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(this.fabricante)
+                    })
+                    .then(response => {
+                        if (response.status === 204 || 200 || 201) {
+                            alert("Los cambios se han guardado con éxito.");
+                        } else {
+                            alert("Hubo un error al guardar los cambios. Por favor, inténtalo de nuevo.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo.");
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

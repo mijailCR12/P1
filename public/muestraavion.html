@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Avión</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Enlace a la hoja de estilos externa -->
+</head>
+<body>
+ <!-- Botones Encabezado -->
+    <div id="encabezado">
+        <button @click="irAInicio">Inicio</button>
+        <button @click="irAAviones">Aviones</button>
+        <button @click="irAAerolineas">Aerolíneas</button>
+        <button @click="irAFabricantes">Fabricantes</button>
+    </div>
+
+    <div id="avion-detalle">
+        <div class="ficha-tecnica">
+            <h2>{{ avion.modelo }}</h2>
+            <img :src="getImagenUrl(avion.imagen)" :alt="avion.modelo" width="300" height="300">
+            
+            <table class="tabla-atributos">
+                <tr>
+                    <td><label>Fabricante:</label></td>
+                    <td><input type="text" v-model="avion.fabricante.nombre"></td>
+                </tr>
+                <tr>
+                    <td><label>País de Fabricación:</label></td>
+                    <td><input type="text" v-model="avion.fabricante.pais"></td>
+                </tr>
+                <tr>
+                    <td><label>Capacidad de Pasajeros:</label></td>
+                    <td><input type="text" v-model="avion.capacidad_pasajeros"></td>
+                </tr>
+                <tr>
+                    <td><label>Alcance (km):</label></td>
+                    <td><input type="text" v-model="avion.alcance_km"></td>
+                </tr>
+                <tr>
+                    <td><label>Velocidad Máxima (km/h):</label></td>
+                    <td><input type="text" v-model="avion.velocidad_maxima_kmh"></td>
+                </tr>
+                <tr>
+                    <td><label>Precio (millones USD):</label></td>
+                    <td><input type="text" v-model="avion.precio_millon_usd"></td>
+                </tr>
+       </div>
+    </div>
+    <div class="BarraBotonesTabla">
+        <table>
+            <tr>
+                <td>
+                    <button class="agregar-btn btn-regresar" style="float: left;" @click="regresarALista">Regresar</button>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+       <!-- Pie de página -->
+       <div id="pie-pagina">
+        Copyright (c) - 2023 Juan Carlos Marín Cascante  Proyecto 1 Distribuidos
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        // Funciones para redirigir a las páginas correspondientes
+        new Vue({
+            el: "#encabezado",
+            methods: {
+                irAInicio() {
+                    window.location.href = "index.html";
+                },
+                irAAviones() {
+                    window.location.href = "aviones.html";
+                },
+                irAAerolineas() {
+                    window.location.href = "aerolineas.html";
+                },
+                irAFabricantes() {
+                    window.location.href = "fabricantes.html";
+                }
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#avion-detalle",
+            data: {
+                avion: {} // Aquí almacenaremos el avión seleccionado
+            },
+            created() {
+                // Obtener el ID del avión de la URL
+                const params = new URLSearchParams(window.location.search);
+                const avionId = params.get('id');
+
+                // Realizar una solicitud GET al servidor para obtener los detalles del avión por su ID
+                fetch(`http://localhost:3000/aviones/${avionId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.avion = data;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            },
+            methods: {
+                getImagenUrl(imagen) {
+                    // Reemplaza la ruta de la imagen si es necesario
+                    return './images/' + imagen;
+                },
+                regresarALista() {
+                    // Redirigir a la página aviones.html
+                    window.history.back();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

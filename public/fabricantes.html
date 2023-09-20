@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Fabricantes</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Enlace al archivo CSS -->
+</head>
+<body>
+    <!-- Botones Encabezado -->
+    <div id="encabezado">
+        <button @click="irAInicio">Inicio</button>
+        <button @click="irAAviones">Aviones</button>
+        <button @click="irAAerolineas">Aerolíneas</button>
+        <button @click="irAFabricantes">Fabricantes</button>
+    </div>
+
+    <div id="app">
+        <h1>Listado de Fabricantes</h1>
+        <!-- Botón Agregar+ -->
+        <div style="text-align: left;">
+            <button class="agregar-btn" @click="agregarFabricante">Agregar+</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Aviones</th> <!-- Nueva columna para aviones -->
+                    <th>País</th>
+                    <th>Año de Fundación</th>
+                    <th>Imagen</th>
+                    <th>Acciones</th> <!-- Nueva columna para botones -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="fabricante in fabricantes" :key="fabricante.id">
+                    <td>{{ fabricante.id }}</td>
+                    <td>{{ fabricante.nombre }}</td>
+                    <td>
+                        <div v-for="(avion, index) in fabricante.aviones">
+                            <a @click="verAvion(avion.id)">{{ avion.nombre.trim() }}</a>
+                            <!-- Puedes usar el método verAvion para redirigir a la página muestraavion.html -->
+                        </div>
+                    </td>
+                    <td>{{ fabricante.pais }}</td>
+                    <td>{{ fabricante.anio_fundacion }}</td>
+                    <td><img :src="getImagenUrl(fabricante.imagen)" :alt="fabricante.nombre" width="100" height="100"></td>
+                    <td>
+                        <div class="btn-container">
+                            <button @click="mostrarFabricante(fabricante.id)">Mostrar</button> <!-- Botón Mostrar -->
+                            <button @click="modificarFabricante(fabricante.id)">Modificar</button> <!-- Botón Modificar -->
+                            <button @click="borrarFabricante(fabricante.id)">Borrar</button> <!-- Botón Borrar -->
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pie de página -->
+    <div id="pie-pagina">
+        Copyright (c) - 2023 Juan Carlos Marín Cascante  Proyecto 1 Distribuidos
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                fabricantes: []
+            },
+            created() {
+                this.getFabricantes();
+            },
+            methods: {
+                async getFabricantes() {
+                    try {
+                        const response = await fetch('http://localhost:3000/fabricantes'); // Cambia la URL según tu configuración
+                        if (!response.ok) {
+                            throw new Error(`Error al obtener los datos: ${response.statusText}`);
+                        }
+                        this.fabricantes = await response.json();
+                    } catch (error) {
+                        console.error(error);
+                    }
+                },
+                getImagenUrl(imagen) {
+                    // Reemplaza la ruta de la imagen si es necesario
+                    return './images/' + imagen;
+                },
+                mostrarFabricante(fabricanteId) {
+                    // Redirigir a la página muestrafabricante.html con el ID del fabricante como parámetro
+                    window.location.href = `muestrafabricante.html?id=${fabricanteId}`;
+                },
+                modificarFabricante(fabricanteId) {
+                    // Implementa la lógica para modificar el fabricante por su ID
+                    // console.log(`Modificar fabricante con ID ${fabricanteId}`);
+                    window.location.href = `modificarfabricante.html?id=${fabricanteId}`;
+                },
+                async borrarFabricante(fabricanteId) {
+                    const confirmacion = confirm("¿Está seguro que desea borrar el registro?");
+                    if (confirmacion) {
+                        try {
+                            const response = await fetch(`http://localhost:3000/fabricantes/${fabricanteId}`, {
+                                method: 'DELETE',
+                            });
+                            if (!response.ok) {
+                                throw new Error(`Error al borrar el fabricante: ${response.statusText}`);
+                            }
+                            console.log(`Fabricante con ID ${fabricanteId} borrado exitosamente.`);
+                            // Refrescar la página después de eliminar
+                            location.reload();
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    } else {
+                        // Acción cancelada, no se hace nada
+                    }
+                },
+                agregarFabricante() {
+                    // Implementa la lógica para agregar un nuevo fabricante
+                    window.location.href = `agregafabricante.html`;
+                    console.log("Agregar nuevo fabricante");
+                },
+                verAvion(avionId) {
+                    // Redirigir a la página muestraavion.html con el ID del avión como parámetro
+                    window.location.href = `muestraavion.html?id=${avionId}`;
+                }
+            }
+        });
+
+        // Funciones para redirigir a las páginas correspondientes
+        new Vue({
+            el: "#encabezado",
+            methods: {
+                irAInicio() {
+                    window.location.href = "index.html";
+                },
+                irAAviones() {
+                    window.location.href = "aviones.html";
+                },
+                irAAerolineas() {
+                    window.location.href = "aerolineas.html";
+                },
+                irAFabricantes() {
+                    window.location.href = "fabricantes.html";
+                }
+            }
+        });
+    </script>
+</body>
+</html>

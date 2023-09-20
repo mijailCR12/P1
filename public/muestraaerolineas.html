@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Aerolínea</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Enlace a la hoja de estilos externa -->
+</head>
+<body>
+    <!-- Botones Encabezado -->
+    <div id="encabezado">
+        <button @click="irAInicio">Inicio</button>
+        <button @click="irAAviones">Aviones</button>
+        <button @click="irAAerolineas">Aerolíneas</button>
+        <button @click="irAFabricantes">Fabricantes</button>
+    </div>
+
+    <div id="aerolinea-detalle">
+        <div class="ficha-tecnica">
+            <h2>{{ aerolinea.nombre }}</h2>
+            <img :src="getImagenUrl(aerolinea.imagen)" :alt="aerolinea.nombre" width="300" height="300">
+            
+            <table class="tabla-atributos">
+                <tr>
+                    <td><label>ID:</label></td>
+                    <td><input type="text" v-model="aerolinea.id"></td>
+                </tr>
+                <tr>
+                    <td><label>Nombre:</label></td>
+                    <td><input type="text" v-model="aerolinea.nombre"></td>
+                </tr>
+                <tr>
+                    <td><label>País de Origen:</label></td>
+                    <td><input type="text" v-model="aerolinea.pais"></td>
+                </tr>
+            </table>
+                <!-- Botón de Regresar -->
+            <div class="BarraBotonesTabla">
+            <table>
+                <tr>
+                    <td>
+                        <button class="agregar-btn btn-regresar" style="float: left;" @click="regresarAAerolineas">Regresar</button>
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <!-- Pie de página -->
+    <div id="pie-pagina">
+        Copyright (c) - 2023 Juan Carlos Marín Cascante  Proyecto 1 Distribuidos
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        // Funciones para redirigir a las páginas correspondientes
+        new Vue({
+            el: "#encabezado",
+            methods: {
+                irAInicio() {
+                    window.location.href = "index.html";
+                },
+                irAAviones() {
+                    window.location.href = "aviones.html";
+                },
+                irAAerolineas() {
+                    window.location.href = "aerolineas.html";
+                },
+                irAFabricantes() {
+                    window.location.href = "fabricantes.html";
+                }
+            }
+        });
+
+        new Vue({
+            el: "#aerolinea-detalle",
+            data: {
+                aerolinea: {} // Aquí almacenaremos la aerolínea seleccionada
+            },
+            created() {
+                // Obtener el ID de la aerolínea de la URL
+                const params = new URLSearchParams(window.location.search);
+                const aerolineaId = params.get('id');
+
+                // Realizar una solicitud GET al servidor para obtener los detalles de la aerolínea por su ID
+                fetch(`http://localhost:3000/aerolineas/${aerolineaId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.aerolinea = data;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            },
+            methods: {
+                getImagenUrl(imagen) {
+                    // Reemplaza la ruta de la imagen si es necesario
+                    return './images/' + imagen;
+                },
+                regresarAAerolineas() {
+                    // Redirigir a la página aerolineas.html
+                    window.history.back();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

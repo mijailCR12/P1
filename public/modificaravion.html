@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Avión</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Enlace a la hoja de estilos externa -->
+</head>
+<body>
+ <!-- Botones Encabezado -->
+    <div id="encabezado">
+        <button @click="irAInicio">Inicio</button>
+        <button @click="irAAviones">Aviones</button>
+        <button @click="irAAerolineas">Aerolíneas</button>
+        <button @click="irAFabricantes">Fabricantes</button>
+    </div>
+
+    <div id="avion-detalle">
+        <div class="ficha-tecnica">
+            <h2>{{ avion.modelo }}</h2>
+            <img :src="getImagenUrl(avion.imagen)" :alt="avion.modelo" width="300" height="300">
+            <form @submit.prevent="guardarCambios">
+            <table class="tabla-atributos">
+                <tr>
+                    <td class="etiqueta">
+                        <label>Fabricante:</label></td>
+                        <td>
+                        <select v-model="avion.fabricante">
+                            <option value="" disabled>Selecciona un fabricante</option>
+                            <option v-for="fabricante in fabricantes" :value="fabricante">{{ fabricante.nombre }}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="etiqueta"><label>Aerolíneas:</label></td>
+                    <td>
+                    <div v-for="aerolinea in aerolineasDisponibles" :key="aerolinea.id">
+                        <input type="checkbox" v-model="avion.aerolineas_usuarias" :value="aerolinea">
+                        {{ aerolinea.nombre }}
+                    </div>
+                </td>
+                </tr> 
+                <tr>
+                    <td><label>Capacidad de Pasajeros:</label></td>
+                    <td><input type="text" v-model="avion.capacidad_pasajeros"></td>
+                </tr>
+                <tr>
+                    <td><label>Alcance (km):</label></td>
+                    <td><input type="text" v-model="avion.alcance_km"></td>
+                </tr>
+                <tr>
+                    <td><label>Velocidad Máxima (km/h):</label></td>
+                    <td><input type="text" v-model="avion.velocidad_maxima_kmh"></td>
+                </tr>
+                <tr>
+                    <td><label>Precio (millones USD):</label></td>
+                    <td><input type="text" v-model="avion.precio_millon_usd"></td>
+                </tr>
+                
+       </div>
+    </div>
+    <div class="BarraBotonesTabla">
+        <table>
+            <tr>
+                <td>
+                    <button class="agregar-btn btn-regresar" style="float: left;" @click="regresarALista">Regresar</button>
+                </td>
+                <td>
+                    <button class="agregar-btn btn-guardar" style="float: right;" type="submit">Guardar</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    </div>
+       <!-- Pie de página -->
+       <div id="pie-pagina">
+        Copyright (c) - 2023 Juan Carlos Marín Cascante  Proyecto 1 Distribuidos
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        // Funciones para redirigir a las páginas correspondientes
+        new Vue({
+            el: "#encabezado",
+            methods: {
+                irAInicio() {
+                    window.location.href = "index.html";
+                },
+                irAAviones() {
+                    window.location.href = "aviones.html";
+                },
+                irAAerolineas() {
+                    window.location.href = "aerolineas.html";
+                },
+                irAFabricantes() {
+                    window.location.href = "fabricantes.html";
+                }
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#avion-detalle",
+            data: {
+                avion: {}, // Aquí almacenaremos el avión seleccionado
+                fabricantes: [],
+                aerolineasDisponibles:[]
+
+            },
+            created() {
+                // Obtener el ID del avión de la URL
+                const params = new URLSearchParams(window.location.search);
+                const avionId = params.get('id');
+
+                // Realizar una solicitud GET al servidor para obtener los detalles del avión por su ID
+                fetch(`http://localhost:3000/aviones/${avionId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.avion = data;
+                        this.avion.aerolineas_usuarias = this.avion.aerolineas_usuarias;
+
+                        // Cargar la lista de aerolíneas disponibles
+                        this.cargarAerolineasDisponibles();
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+                    this.cargarFabricantes();
+            },
+            methods: {
+                cargarAerolineasDisponibles() {
+                    // Realizar una solicitud GET al servidor para obtener la lista de aerolíneas
+                    fetch('http://localhost:3000/aerolineas')
+                        .then(response => response.json())
+                        .then(data => {
+                            this.aerolineasDisponibles = data;
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                },
+                cargarFabricantes() {
+                    // Realizar una solicitud GET al servidor para obtener la lista de fabricantes
+                    fetch('http://localhost:3000/fabricantes')
+                        .then(response => response.json())
+                        .then(data => {
+                            this.fabricantes = data;
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                },
+                getImagenUrl(imagen) {
+                    // Reemplaza la ruta de la imagen si es necesario
+                    return './images/' + imagen;
+                },
+                regresarALista() {
+                    // Redirigir a la página aviones.html
+                    window.location.href = `aviones.html`;
+                },
+                guardarCambios() {
+                    // Enviar una solicitud PUT al servidor para guardar los cambios
+                    fetch(`http://localhost:3000/aviones/${this.avion.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(this.avion)
+                    })
+                    .then(response => {
+                        if (response.status === 204 || 200 || 201) {
+                            alert("Los cambios se han guardado con éxito.");
+                        } else {
+                            alert("Hubo un error al guardar los cambios. Por favor, inténtalo de nuevo.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo.");
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Aviones</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Agrega tu archivo de estilos CSS -->
+</head>
+<body>
+    <!-- Botones Encabezado -->
+    <div id="encabezado">
+        <button @click="irAInicio">Inicio</button>
+        <button @click="irAAviones">Aviones</button>
+        <button @click="irAAerolineas">Aerolíneas</button>
+        <button @click="irAFabricantes">Fabricantes</button>
+    </div>
+
+    <div id="app">
+        <h1>Listado de Aviones</h1>
+        <div style="text-align: left;">
+            <button class="agregar-btn" @click="agregarAvion">Agregar+</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Modelo</th>
+                    <th>Fabricante</th>
+                    <th>Aerolínea</th>
+
+                    <th>Imagen</th>
+                    <th>Acciones</th> <!-- Nueva columna para botones -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="avion in aviones" :key="avion.id">
+                    <td>{{ avion.modelo }}</td>
+                    <td><a @click="verFabricante(avion.fabricante.id)">{{ avion.fabricante.nombre }}</a></td> <!-- Enlace para ver fabricante -->
+                    <td>
+                        <div v-for="(aerolinea, index) in avion.aerolineas_usuarias">
+                            <a @click="verAerolinea(aerolinea.id)">{{ aerolinea.nombre }}</a>
+                        </div>
+                    </td>
+
+                    <td><img :src="'./images/' + avion.imagen" :alt="avion.modelo" width="256" height="256"></td>
+                    <td>
+                        <div class="btn-container">
+                            <button @click="mostrarAvion(avion.id)">Mostrar</button> <!-- Botón Mostrar -->
+                            <button @click="modificarAvion(avion.id)">Modificar</button> <!-- Botón Modificar -->
+                            <button @click="borrarAvion(avion.id)">Borrar</button> <!-- Botón Borrar -->
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pie de página -->
+    <div id="pie-pagina">
+        Copyright (c) - 2023 Juan Carlos Marín Cascante  Proyecto 1 Distribuidos
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        // Funciones para redirigir a las páginas correspondientes
+        new Vue({
+            el: "#encabezado",
+            methods: {
+                irAInicio() {
+                    window.location.href = "index.html";
+                },
+                irAAviones() {
+                    window.location.href = "aviones.html";
+                },
+                irAAerolineas() {
+                    window.location.href = "aerolineas.html";
+                },
+                irAFabricantes() {
+                    window.location.href = "fabricantes.html";
+                }
+            }
+        });
+        
+        // Tu código JavaScript aquí
+        new Vue({
+            el: "#app",
+            data: {
+                aviones: []
+            },
+            created() {
+                this.getAviones();
+            },
+            methods: {
+                async getAviones() {
+                    try {
+                        const response = await fetch('http://localhost:3000/aviones');
+                        if (!response.ok) {
+                            throw new Error(`Error al obtener los datos: ${response.statusText}`);
+                        }
+                        this.aviones = await response.json();
+                    } catch (error) {
+                        console.error(error);
+                    }
+                },
+                verFabricante(fabricanteId) {
+                    // Redirigir a la página muestrafabricante.html con el ID del fabricante como parámetro
+                    window.location.href = `muestrafabricante.html?id=${fabricanteId}`;
+                },
+                verAerolinea(aerolineaId) {
+                    // Implementa la lógica para ver la aerolínea por su ID
+                    console.log(`Ver aerolínea con ID ${aerolineaId}`);
+                },
+                mostrarAvion(avionId) {
+                    // Redirigir a la página muestraavion.html con el ID del avión como parámetro
+                    window.location.href = `muestraavion.html?id=${avionId}`;
+                },
+                modificarAvion(avionId) {
+                    // Implementa la lógica para modificar el avión por su ID
+                    // console.log(`Modificar avión con ID ${avionId}`);
+                    window.location.href = `modificaravion.html?id=${avionId}`;
+                },
+                borrarAvion(avionId) {
+                    // Implementa la lógica para borrar el avión por su ID
+                    console.log(`Borrar avión con ID ${avionId}`);
+                },
+                agregarAvion() {
+                    // Implementa la lógica para agregar un nuevo avión
+                    console.log("Agregar nuevo avión");
+                }
+            }
+        });
+    </script>
+</body>
+</html>

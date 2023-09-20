@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Aerolíneas</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Agrega tu archivo de estilos CSS -->
+</head>
+<body>
+    <!-- Botones Encabezado -->
+    <div id="encabezado">
+        <button @click="irAInicio">Inicio</button>
+        <button @click="irAAviones">Aviones</button>
+        <button @click="irAAerolineas">Aerolíneas</button>
+        <button @click="irAFabricantes">Fabricantes</button>
+    </div>
+
+    <div id="app">
+        <h1>Listado de Aerolíneas</h1>
+        <div style="text-align: left;">
+            <button class="agregar-btn" @click="agregarAerolinea">Agregar+</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Aviones</th> <!-- Nueva columna para aviones -->
+                    <th>Fabricantes</th> <!-- Nueva columna para fabricantes -->
+                    <th>País</th>
+                    <th>Imagen</th>
+                    <th>Acciones</th> <!-- Nueva columna para botones -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="aerolinea in aerolineas" :key="aerolinea.id">
+                    <td>{{ aerolinea.id }}</td>
+                    <td>{{ aerolinea.nombre }}</td>
+                    <td>
+                        <ul>
+                            <li v-for="avion in aerolinea.aviones">
+                                <a @click="verAvion(avion.id)">{{ avion.nombre }}</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li v-for="fabricante in aerolinea.fabricantes">
+                                <a @click="verFabricante(fabricante.id)">{{ fabricante.nombre }}</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>{{ aerolinea.pais }}</td>
+                    <td><img :src="'./images/' + aerolinea.imagen" :alt="aerolinea.nombre" width="100" height="100"></td>
+                    <td>
+                        <div class="btn-container">
+                            <button @click="mostrarAerolinea(aerolinea.id)">Mostrar</button>
+                            <button @click="modificarAerolinea(aerolinea.id)">Modificar</button>
+                            <button @click="borrarAerolinea(aerolinea.id)">Borrar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pie de página -->
+    <div id="pie-pagina">
+        Copyright (c) - 2023 Juan Carlos Marín Cascante  Proyecto 1 Distribuidos
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        // Funciones para redirigir a las páginas correspondientes
+        new Vue({
+            el: "#encabezado",
+            methods: {
+                irAInicio() {
+                    window.location.href = "index.html";
+                },
+                irAAviones() {
+                    window.location.href = "aviones.html";
+                },
+                irAAerolineas() {
+                    window.location.href = "aerolineas.html";
+                },
+                irAFabricantes() {
+                    window.location.href = "fabricantes.html";
+                }
+            }
+        });
+
+        // Tu código JavaScript aquí
+        new Vue({
+            el: "#app",
+            data: {
+                aerolineas: []
+            },
+            created() {
+                this.getAerolineas();
+            },
+            methods: {
+                async getAerolineas() {
+                    try {
+                        const response = await fetch('http://localhost:3000/aerolineas');
+                        if (!response.ok) {
+                            throw new Error(`Error al obtener los datos: ${response.statusText}`);
+                        }
+                        this.aerolineas = await response.json();
+                    } catch (error) {
+                        console.error(error);
+                    }
+                },
+                verAvion(avionId) {
+                    // Redirigir a la página muestraavion.html con el ID del avión como parámetro
+                    window.location.href = `muestraavion.html?id=${avionId}`;
+                },
+                verFabricante(fabricanteId) {
+                    // Redirigir a la página muestrafabricante.html con el ID del fabricante como parámetro
+                    window.location.href = `muestrafabricante.html?id=${fabricanteId}`;
+                },
+                mostrarAerolinea(aerolineaId) {
+                    // Implementa la lógica para mostrar la aerolínea por su ID
+                    window.location.href = `muestraaerolineas.html?id=${aerolineaId}`;
+                    console.log(`Mostrar aerolínea con ID ${aerolineaId}`);
+                },
+                modificarAerolinea(aerolineaId) {
+                    // Implementa la lógica para modificar la aerolínea por su ID
+                    window.location.href = `modificaraerolinea.html?id=${aerolineaId}`;
+                    console.log(`Modificar aerolínea con ID ${aerolineaId}`);
+                },
+                async borrarAerolinea(aerolineaId) {
+                    const confirmacion = confirm("¿Está seguro que desea borrar el registro?");
+                    if (confirmacion) {
+                        try {
+                            const response = await fetch(`http://localhost:3000/aerolineas/${aerolineaId}`, {
+                                method: 'DELETE',
+                            });
+                            if (!response.ok) {
+                                throw new Error(`Error al borrar la aerolínea: ${response.statusText}`);
+                            }
+                            console.log(`Aerolínea con ID ${aerolineaId} borrada exitosamente.`);
+                            // Refrescar la página después de eliminar
+                            location.reload();
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    } else {
+                        // Acción cancelada, no se hace nada
+                    }
+                },
+                agregarAerolinea() {
+                    // Implementa la lógica para agregar un nuevo avión
+                    window.location.href = `agregaaerolinea.html`;
+                    console.log("Agregar nuevo aerolinea");
+                }
+            }
+        });
+    </script>
+</body>
+</html>

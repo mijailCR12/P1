@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio - Sistemas Distribuidos</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Agrega tu archivo de estilos CSS -->
+    <style>
+        /* Estilo para el cuerpo de la página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Estilo para el banner */
+        #banner {
+            width: 100%;
+            max-height: 300px;
+            overflow: hidden;
+        }
+
+        #banner img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Estilo para el encabezado */
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-top: 20px;
+        }
+
+        /* Estilo para la tabla de botones */
+        table {
+            width: 90%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Estilo para los botones */
+        .boton-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .boton-container a {
+            text-decoration: none;
+        }
+
+        .boton {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 36px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilo para el pie de página */
+        #pie-pagina {
+            width: 100%;
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Banner en el encabezado -->
+    <div id="banner">
+        <img src="images/tu-imagen-banner.jpg" alt="Banner de Sistemas Distribuidos">
+    </div>
+
+    <!-- Título de la página -->
+    <h1>Bienvenido al Proyecto de Sistemas Distribuidos</h1>
+
+    <!-- Tabla de botones -->
+    <table>
+        <thead>
+            <tr>
+                <th>Explora nuestras páginas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="boton-container">
+                    <a href="aviones.html" class="boton">Aviones</a>
+                    <a href="aerolineas.html" class="boton">Aerolíneas</a>
+                    <a href="fabricantes.html" class="boton">Fabricantes</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pie de página -->
+    <div id="pie-pagina">
+        &copy; 2023 Proyecto de Sistemas Distribuidos - Universidad Nacional
+    </div>
+</body>
+</html>

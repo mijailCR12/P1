@@ -1,0 +1,251 @@
+/* Estilos generales de la página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Estilos para el botón de agregar */
+.agregar-btn {
+    width: 100%;
+    max-width: 120px;
+    margin: 20px 0; /* Eliminamos el margin: auto; y ajustamos el margen superior e inferior */
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    float: right; /* Alineamos el botón a la derecha utilizando float */
+}
+
+.agregar-btn:hover {
+    background-color: #1e7e34;
+}
+
+
+/* Estilos para el encabezado */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Estilos para las filas pares */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilos para los enlaces */
+a {
+    text-decoration: none;
+    color: #007bff;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para los botones */
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    width: 100%;
+    height: 36px;
+    margin: 5px 0;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para el botón de agregar */
+.agregar-btn {
+    width: 100%;
+    max-width: 120px;
+    margin: 20px auto;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+}
+
+.agregar-btn:hover {
+    background-color: #1e7e34;
+}
+
+/* Estilos para la imagen */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Estilos específicos para la ficha técnica */
+.ficha-tecnica {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center; /* Centro el contenido en la ficha técnica */
+}
+
+.ficha-tecnica h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.ficha-tecnica img {
+    display: block;
+    margin: 0 auto; /* Centro la imagen horizontalmente */
+}
+
+/* Estilos para la tabla */
+.tabla-atributos {
+    margin: 20px auto;
+    width: 100%;
+    text-align: left;
+}
+
+.tabla-atributos td {
+    padding: 5px;
+}
+
+.tabla-atributos label {
+    font-weight: bold;
+}
+
+/* Estilos para las cajas de texto */
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+
+/* Estilos para el encabezado */
+#encabezado {
+    display: flex; /* Alinea los elementos en línea horizontal */
+    justify-content: space-between; /* Espacio uniforme entre los botones */
+    background-color: #f0f0f0; /* Color de fondo del encabezado */
+    padding: 10px; /* Espaciado interno */
+    color: #fff; /* Color del texto */
+}
+
+#encabezado button {
+    padding: 8px 16px; /* Espaciado interno de los botones */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 10px; /* Espacio entre botones */
+}
+
+#encabezado button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el mouse */
+}
+
+  /* Estilos para el pie de página */
+  #pie-pagina {
+    text-align: center;
+    background-color: #333;
+    padding: 10px;
+    color: #fff;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para la Barra de Botones en una Tabla */
+.BarraBotonesTabla {
+    width: 100%; /* Ancho completo de la tabla */
+    border-collapse: collapse;
+    margin-top: 2em;
+}
+
+/* Estilo para las celdas en la Barra de Botones */
+.BarraBotonesTabla td {
+    text-align: center; /* Centra el contenido horizontalmente */
+    padding: 10px; /* Espaciado interno de las celdas */
+    width: 50%; /* Divide el ancho en dos columnas iguales */
+}
+
+/* Estilo para los botones de la Barra de Botones */
+.BarraBotonesTabla .agregar-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%; /* Ocupa todo el ancho de la celda */
+    padding: 10px; /* Espaciado interno del botón */
+    font-size: 16px; /* Tamaño de fuente del botón */
+}
+
+/* Estilo para el contenedor de la Barra de Botones */
+.BarraBotonesTabla {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilo para el botón de Regresar en la Barra de Botones */
+.BarraBotonesTabla .btn-regresar {
+    background-color: #007bff; /* Color de fondo del botón Regresar */
+    margin-right: auto; /* Alinea el botón Regresar a la izquierda */
+}
+
+/* Estilo para el otro botón en la Barra de Botones (por definir) */
+.BarraBotonesTabla .btn-otro {
+    background-color: #ff9900; /* Puedes cambiar el color de fondo según tus necesidades */
+    margin-left: auto; /* Alinea el otro botón a la derecha */
+}

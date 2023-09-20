@@ -100,7 +100,7 @@ const upload = multer({ storage: storage });
 
 // Obtener todos los aviones
 router.get('/aviones', (req, res) => {
-  const aviones = avionesService.getAviones();
+  const aviones = avionesService.getAviones(); 
   res.json(aviones);
 });
 
@@ -121,6 +121,8 @@ router.post('/aviones',upload.single('imagen'), (req, res) => {
     const avionData = req.body;
     const imagenFilename = req.file.filename;
     avionData.imagen = imagenFilename;
+    avionData.aerolineas_usuarias = JSON.parse(avionData.aerolineas_usuarias)
+    
     const nuevoAvion = avionesService.createAvion(avionData);
     res.status(201).json(nuevoAvion);
   } catch (error) {

@@ -115,7 +115,17 @@
       "nombre": "Airbus",
       "pais": "Francia",
       "anio_fundacion": 1970,
-      "imagen": "airbus_logo.jpeg"
+      "imagen": "airbus_logo.jpeg",
+      "aviones": [
+        {
+          "id": 2,
+          "nombre": "Airbus A320"
+        },
+        {
+          "id": 4,
+          "nombre": "Airbus A350"
+        }
+      ]
     },
     "aerolineas_usuarias": [
       {
@@ -135,6 +145,28 @@
         "nombre": "Iberia",
         "pais": "España",
         "imagen": "iberia_logo.png"
+      },
+      {
+        "id": 4,
+        "nombre": "American Airlines",
+        "pais": "Estados Unidos",
+        "imagen": "american_airlines_logo.jpeg",
+        "fabricantes": [
+          {
+            "id": 2,
+            "nombre": "Airbus"
+          }
+        ],
+        "aviones": [
+          {
+            "id": 2,
+            "nombre": "Airbus A320"
+          },
+          {
+            "id": 4,
+            "nombre": "Airbus A350"
+          }
+        ]
       }
     ],
     "imagen": "AirbusA350.png",
@@ -216,58 +248,67 @@
     "precio_millon_usd": 60.8
   },
   {
-    "modelo": "wwvvwwv",
-    "capacidad_pasajeros": "1",
-    "alcance_km": "2",
-    "velocidad_maxima_kmh": "3",
-    "precio_millon_usd": "4",
-    "aerolineas_usuarias": "3",
-    "fabricante": "4",
-    "imagen": "imagen-1695100266324-718727254.jpg",
+    "modelo": "prueba",
+    "capacidad_pasajeros": "0",
+    "alcance_km": "0",
+    "velocidad_maxima_kmh": "0",
+    "precio_millon_usd": "0",
+    "fabricante": {
+      "id": 1,
+      "nombre": "Boeing",
+      "pais": "Estados Unidos",
+      "anio_fundacion": 1916,
+      "imagen": "boeing_logo.png",
+      "aviones": [
+        {
+          "id": 1,
+          "nombre": "Boeing 747-400"
+        },
+        {
+          "id": 5,
+          "nombre": "Boeing 777"
+        }
+      ]
+    },
+    "aerolineas_usuarias": [
+      {
+        "id": 2,
+        "nombre": "British Airways",
+        "pais": "Reino Unido",
+        "imagen": "british_airways_logo.jpeg",
+        "fabricantes": [
+          {
+            "id": 3,
+            "nombre": "Embraer"
+          }
+        ],
+        "aviones": [
+          {
+            "id": 6,
+            "nombre": "Embraer E195"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "nombre": "Lufthansa",
+        "pais": "Alemania",
+        "imagen": "lufthansa_logo.png",
+        "fabricantes": [
+          {
+            "id": 3,
+            "nombre": "Embraer"
+          }
+        ],
+        "aviones": [
+          {
+            "id": 6,
+            "nombre": "Embraer E195"
+          }
+        ]
+      }
+    ],
+    "imagen": "imagen-1695181886600-73861800.jpg",
     "id": 7
-  },
-  {
-    "modelo": "ecve",
-    "capacidad_pasajeros": "0",
-    "alcance_km": "0",
-    "velocidad_maxima_kmh": "0",
-    "precio_millon_usd": "0",
-    "aerolineas_usuarias": "[object Object],[object Object],[object Object]",
-    "fabricante": "[object Object]",
-    "imagen": "imagen-1695100397873-941437596.jpg",
-    "id": 8
-  },
-  {
-    "modelo": "vwvwev",
-    "capacidad_pasajeros": "0",
-    "alcance_km": "0",
-    "velocidad_maxima_kmh": "0",
-    "precio_millon_usd": "0",
-    "aerolineas_usuarias": "[object Object],[object Object],[object Object]",
-    "fabricante": "[object Object]",
-    "imagen": "imagen-1695101191656-703834898.jpg",
-    "id": 9
-  },
-  {
-    "modelo": "CWC",
-    "capacidad_pasajeros": "0",
-    "alcance_km": "0",
-    "velocidad_maxima_kmh": "0",
-    "precio_millon_usd": "0",
-    "aerolineas_usuarias": "undefined",
-    "fabricante": "3",
-    "imagen": "imagen-1695101543448-863601371.jpg",
-    "id": 10
-  },
-  {
-    "modelo": "dav",
-    "capacidad_pasajeros": "0",
-    "alcance_km": "0",
-    "velocidad_maxima_kmh": "0",
-    "precio_millon_usd": "0",
-    "aerolineas_usuarias": "3,4,6",
-    "fabricante": "2",
-    "imagen": "imagen-1695101671486-524624448.jpg",
-    "id": 11
   }
 ]

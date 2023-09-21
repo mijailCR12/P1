@@ -136,7 +136,7 @@
 
     <!-- Pie de página -->
     <div id="pie-pagina">
-        Copyright (c) - 2023 Juan Carlos Marín Cascante  Proyecto 1 Distribuidos
+        Copyright (c) - 2023 Juan Carlos Marín Cascante / Mijail Díaz Bengoa  Proyecto 1 Distribuidos
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
@@ -339,7 +339,8 @@
                     .then(response => {
                         if (response.status === 200 || response.status === 204 || response.status === 201) {
                             // La solicitud se completó con éxito
-                            window.location.href = "aviones.html";
+                            /*window.location.href = "aviones.html";*/
+                            location.reload();
                         } else {
                             console.error('Error al agregar el avión:', response.status);
                             alert("Hubo un error al agregar el avión. Por favor, inténtalo de nuevo.");

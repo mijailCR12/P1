@@ -51,10 +51,17 @@
     ]
   },
   {
-    "nombre": "nnn",
-    "pais": "n",
-    "anio_fundacion": "2333",
-    "imagen": "pngwing.com(1).png",
+    "nombre": "Antonov",
+    "pais": "Ucrania",
+    "anio_fundacion": "1946",
+    "imagen": "Antonov.jpg",
     "id": 4
+  },
+  {
+    "nombre": "Cesna",
+    "pais": "EEUU",
+    "anio_fundacion": "1927",
+    "imagen": "Cesna.jpg",
+    "id": 5
   }
 ]
